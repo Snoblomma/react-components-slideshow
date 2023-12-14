@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 import { NextUIProvider } from "@nextui-org/react";
 import './App.css';
+
+const CARD_WIDTH = 160;
 
 const list = [
   {
@@ -47,27 +49,59 @@ const list = [
 ];
 
 function App() {
+  const wrapper = useRef<HTMLDivElement>(null)
+  const container = useRef<HTMLDivElement>(null)
+
+  const scrollRight = useCallback(
+    () => {
+      const scrollLeft = container.current?.scrollLeft;
+      const clientWidth = container.current?.clientWidth;
+      const scrollWidth = container.current?.scrollWidth;
+      if (scrollLeft !== undefined && clientWidth !== undefined && scrollWidth !== undefined) {
+        if (scrollLeft < scrollWidth - clientWidth) {
+          container.current?.scrollBy({
+            left: CARD_WIDTH + 32,
+            behavior: 'auto'
+          })
+        }
+      }
+    },
+    [],
+  )
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scrollRight()
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [])
+
+
   return (
     <NextUIProvider>
-      <div className="flex gap-8 p-8 overflow-auto">
-        {list.map((item, index) => (
-          <Card shadow="sm" key={index} isPressable className='w-64 min-w-[160px]' onPress={() => console.log("item pressed")}>
-            <CardBody className="overflow-visible p-0">
-              <Image
-                shadow="sm"
-                radius="lg"
-                width="100%"
-                alt={item.title}
-                className="w-full object-cover h-[140px]"
-                src={item.img}
-              />
-            </CardBody>
-            <CardFooter className="text-small justify-between">
-              <b>{item.title}</b>
-              <p className="text-default-500">{item.price}</p>
-            </CardFooter>
-          </Card>
-        ))}
+      <div ref={wrapper}>
+        <div ref={container} className="flex gap-8 p-8 overflow-auto">
+          {list.concat(list).map((item, index) => (
+            <Card shadow="sm" key={index} isPressable className={`w-[160px] min-w-[160px]`} onPress={() => scrollRight()}>
+              <CardBody className="overflow-visible p-0">
+                <Image
+                  shadow="sm"
+                  radius="lg"
+                  width="100%"
+                  alt={item.title}
+                  className="w-full object-cover h-[140px]"
+                  src={item.img}
+                />
+              </CardBody>
+              <CardFooter className="text-small justify-between">
+                <b>{item.title}</b>
+                <p className="text-default-500">{item.price}</p>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
     </NextUIProvider>
   );
