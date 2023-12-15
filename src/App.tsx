@@ -52,30 +52,42 @@ function App() {
   const wrapper = useRef<HTMLDivElement>(null)
   const container = useRef<HTMLDivElement>(null)
 
-  const scrollRight = useCallback(
-    () => {
-      const scrollLeft = container.current?.scrollLeft;
-      const clientWidth = container.current?.clientWidth;
-      const scrollWidth = container.current?.scrollWidth;
-      if (scrollLeft !== undefined && clientWidth !== undefined && scrollWidth !== undefined) {
-        if (scrollLeft < scrollWidth - clientWidth) {
-          container.current?.scrollBy({
-            left: CARD_WIDTH + 32,
-            behavior: 'auto'
-          })
-        }
-      }
-    },
-    [],
-  )
 
+  async function scrollRight() {
+    const scrollLeft = container.current?.scrollLeft;
+    const clientWidth = container.current?.clientWidth;
+    const scrollWidth = container.current?.scrollWidth;
+    if (scrollLeft !== undefined && clientWidth !== undefined && scrollWidth !== undefined) {
+      if (scrollLeft < scrollWidth - clientWidth) {
+        container.current?.scrollBy({
+          left: CARD_WIDTH + 32,
+          behavior: 'smooth'
+        })
+        // if (scrollWidth - clientWidth - scrollLeft <= CARD_WIDTH + 32) {
+        //   container.current?.scrollTo({
+        //     left: 2 * (CARD_WIDTH + 32),
+        //     behavior: 'auto'
+        //   })
+        // }
+      }
+      else {
+        container.current?.scrollTo({
+          left: 2 * (CARD_WIDTH + 32),
+          behavior: 'auto'
+        })
+      }
+      await new Promise(r => setTimeout(r, 1000));
+    }
+  }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      scrollRight()
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   scrollRight()
+    // }, 1000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
+
+    scrollRight()
   }, [])
 
 
