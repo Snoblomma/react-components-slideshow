@@ -85,7 +85,7 @@ function App() {
   return (
     <NextUIProvider>
       <div ref={wrapper}>
-        <div ref={container} className="flex gap-8 p-8 overflow-auto">
+        <div ref={container} className="flex gap-8 p-8 overflow-hidden">
           {list.concat(list).map((item, index) => (
             <Card shadow="sm" key={index} isPressable className={`w-[160px] min-w-[160px]`} onPress={() => scrollRight()}>
               <CardBody className="overflow-visible p-0">
