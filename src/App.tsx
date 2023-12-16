@@ -66,7 +66,7 @@ function App() {
           })
           if (scrollWidth - clientWidth - scrollLeft <= CARD_WIDTH + 32) {
             container.current?.scrollTo({
-              left: 2 * (CARD_WIDTH + 32),
+              left: CARD_WIDTH + 32,
               behavior: 'auto'
             })
           }
