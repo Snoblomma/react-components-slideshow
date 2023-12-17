@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
-import { NextUIProvider } from "@nextui-org/react";
+import { useEffect, useRef } from 'react';
+import { NextUIProvider, Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 import './App.css';
 
 const CARD_WIDTH = 160;
+const SPACING = 32;
+const INTERVAL = CARD_WIDTH + SPACING;
 
 const list = [
   {
@@ -52,7 +53,6 @@ function App() {
   const wrapper = useRef<HTMLDivElement>(null)
   const container = useRef<HTMLDivElement>(null)
 
-
   async function scrollRight() {
     while (true) {
       const scrollLeft = container.current?.scrollLeft;
@@ -61,12 +61,12 @@ function App() {
       if (scrollLeft !== undefined && clientWidth !== undefined && scrollWidth !== undefined) {
         if (scrollLeft < scrollWidth - clientWidth) {
           container.current?.scrollBy({
-            left: CARD_WIDTH + 32,
+            left: INTERVAL,
             behavior: 'smooth'
           })
-          if (scrollWidth - clientWidth - scrollLeft <= CARD_WIDTH + 32) {
+          if (scrollWidth - clientWidth - scrollLeft <= INTERVAL) {
             container.current?.scrollTo({
-              left: CARD_WIDTH + 32,
+              left: INTERVAL,
               behavior: 'auto'
             })
           }
@@ -85,9 +85,9 @@ function App() {
   return (
     <NextUIProvider>
       <div ref={wrapper}>
-        <div ref={container} className="flex gap-8 p-8 overflow-hidden">
+        <div ref={container} className={`flex p-8 overflow-hidden`} style={{ gap: `${SPACING}px` }}>
           {list.concat(list).map((item, index) => (
-            <Card shadow="sm" key={index} isPressable className={`w-[160px] min-w-[160px]`} onPress={() => scrollRight()}>
+            <Card shadow="sm" key={index} isPressable style={{ minWidth: `${CARD_WIDTH}px` }} onPress={() => scrollRight()}>
               <CardBody className="overflow-visible p-0">
                 <Image
                   shadow="sm"
