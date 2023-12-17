@@ -4,7 +4,8 @@ import './App.css';
 
 const CARD_WIDTH = 160;
 const SPACING = 32;
-const INTERVAL = CARD_WIDTH + SPACING;
+const OFFSET = 23;
+const INTERVAL = CARD_WIDTH + SPACING + OFFSET;
 
 const list = [
   {
