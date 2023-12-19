@@ -63,25 +63,23 @@ function App() {
         if (scrollLeft < scrollWidth - clientWidth) {
           container.current?.scrollBy({
             left: INTERVAL,
-            behavior: 'smooth'
+            behavior: 'smooth',
           })
           if (scrollWidth - clientWidth - scrollLeft <= INTERVAL) {
             container.current?.scrollTo({
               left: INTERVAL,
-              behavior: 'auto'
+              behavior: 'instant'
             })
           }
         }
       }
-
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise(r => setTimeout(r, 1500));
     }
   }
 
   useEffect(() => {
     scrollRight()
   }, [])
-
 
   return (
     <NextUIProvider>
