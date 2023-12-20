@@ -60,17 +60,17 @@ function App() {
       const clientWidth = container.current?.clientWidth;
       const scrollWidth = container.current?.scrollWidth;
       if (scrollLeft !== undefined && clientWidth !== undefined && scrollWidth !== undefined) {
-        if (scrollLeft < scrollWidth - clientWidth) {
+        if (scrollLeft > 8 * (CARD_WIDTH + SPACING)) {
+          container.current?.scrollTo({
+            left: scrollLeft - 8 * (CARD_WIDTH + SPACING),
+            behavior: 'instant'
+          })
+        }
+        else {
           container.current?.scrollBy({
             left: INTERVAL,
             behavior: 'smooth',
           })
-          if (scrollWidth - clientWidth - scrollLeft <= INTERVAL) {
-            container.current?.scrollTo({
-              left: INTERVAL,
-              behavior: 'instant'
-            })
-          }
         }
       }
       await new Promise(r => setTimeout(r, 1500));
@@ -84,7 +84,7 @@ function App() {
   return (
     <NextUIProvider>
       <div ref={wrapper}>
-        <div ref={container} className={`flex p-8 overflow-hidden`} style={{ gap: `${SPACING}px` }}>
+        <div ref={container} className={`flex p-8 overflow-auto`} style={{ gap: `${SPACING}px` }}>
           {list.concat(list).map((item, index) => (
             <Card shadow="sm" key={index} isPressable style={{ minWidth: `${CARD_WIDTH}px` }} onPress={() => scrollRight()}>
               <CardBody className="overflow-visible p-0">
