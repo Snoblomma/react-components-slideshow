@@ -84,7 +84,7 @@ function App() {
   return (
     <NextUIProvider>
       <div ref={wrapper}>
-        <div ref={container} className={`flex p-8 overflow-auto`} style={{ gap: `${SPACING}px` }}>
+        <div ref={container} className={`flex p-8 overflow-hidden`} style={{ gap: `${SPACING}px` }}>
           {list.concat(list).map((item, index) => (
             <Card shadow="sm" key={index} isPressable style={{ minWidth: `${CARD_WIDTH}px` }} onPress={() => scrollRight()}>
               <CardBody className="overflow-visible p-0">
