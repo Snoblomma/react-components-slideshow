@@ -86,7 +86,7 @@ function App() {
       <div ref={wrapper} className='flex h-full items-center'>
         <div ref={container} className={`flex p-8 overflow-hidden`} style={{ gap: `${SPACING}px` }}>
           {list.concat(list).map((item, index) => (
-            <Card shadow="sm" key={index} isPressable style={{ minWidth: `${CARD_WIDTH}px` }}>
+            <Card shadow="sm" key={index} style={{ minWidth: `${CARD_WIDTH}px` }}>
               <CardBody className="overflow-visible p-0">
                 <Image
                   shadow="sm"
