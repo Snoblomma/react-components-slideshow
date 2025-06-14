@@ -84,7 +84,7 @@ function App() {
   return (
     <HeroUIProvider style={{ height: '100%' }}>
       <div ref={wrapper} className='flex h-full items-center'>
-        <div ref={container} className={`flex p-8 overflow-hidden`} style={{ gap: `${SPACING}px` }}>
+        <div ref={container} className='flex p-8 overflow-hidden h-full items-center' style={{ gap: `${SPACING}px` }}>
           {list.concat(list).map((item, index) => (
             <Card key={index} style={{ minWidth: `${CARD_WIDTH}px` }}>
               <CardBody className="overflow-visible p-0">
@@ -93,8 +93,9 @@ function App() {
                   radius="lg"
                   width="100%"
                   alt={item.title}
-                  className="w-full object-cover h-[140px]"
+                  className="w-full object-cover"
                   src={item.img}
+                  style={{ height: '140px' }}
                 />
               </CardBody>
               <CardFooter className="text-small justify-between">
