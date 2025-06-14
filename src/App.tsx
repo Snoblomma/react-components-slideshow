@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { NextUIProvider, Card, CardBody, CardFooter, Image } from '@nextui-org/react';
+import { HeroUIProvider, Card, CardBody, CardFooter, Image } from "@heroui/react";
 import './App.css';
 
 const CARD_WIDTH = 160;
@@ -82,11 +82,11 @@ function App() {
   }, [])
 
   return (
-    <NextUIProvider style={{ height: '100%' }}>
+    <HeroUIProvider style={{ height: '100%' }}>
       <div ref={wrapper} className='flex h-full items-center'>
         <div ref={container} className={`flex p-8 overflow-hidden`} style={{ gap: `${SPACING}px` }}>
           {list.concat(list).map((item, index) => (
-            <Card shadow="sm" key={index} style={{ minWidth: `${CARD_WIDTH}px` }}>
+            <Card key={index} style={{ minWidth: `${CARD_WIDTH}px` }}>
               <CardBody className="overflow-visible p-0">
                 <Image
                   shadow="sm"
@@ -105,7 +105,7 @@ function App() {
           ))}
         </div>
       </div>
-    </NextUIProvider>
+    </HeroUIProvider>
   );
 }
 
